@@ -38,6 +38,11 @@
 /** ポップ **/
 - (id)pop
 {
+    // データが一つも存在しなければnilを返す
+    if (data.count < 1) {
+        return nil;
+    }
+    
     id top = [data lastObject];
     
     [data removeLastObject];
