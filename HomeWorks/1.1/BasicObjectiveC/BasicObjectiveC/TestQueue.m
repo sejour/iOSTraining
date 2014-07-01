@@ -37,6 +37,11 @@
 /** デキュー **/
 - (id)dequeue
 {
+    // データが一つも存在しなければnilを返す
+    if (data.count < 1) {
+        return nil;
+    }
+    
     id first = data.firstObject;
     
     [data removeObjectAtIndex:0];
