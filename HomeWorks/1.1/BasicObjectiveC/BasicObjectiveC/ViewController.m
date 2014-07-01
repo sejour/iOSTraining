@@ -74,6 +74,7 @@
     NSLog(@"%d", [queue size]);
     NSLog(@"%@", [queue dequeue]);
     NSLog(@"%d", [queue size]);
+    NSLog(@"%@", [queue dequeue]);
     
     // スタック
     TestStack *stack = [[TestStack alloc] init];
@@ -98,6 +99,7 @@
     NSLog(@"%d", [stack size]);
     NSLog(@"%@", [stack pop]);
     NSLog(@"%d", [stack size]);
+    NSLog(@"%@", [stack pop]);
     // ----------------------------------------------------
     
 }
