@@ -18,7 +18,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
+    
+    // スクロールビューの生成
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:scrollView];
+    
+    // スクロール対象のイメージビューを生成
+    UIImage *image = [UIImage imageNamed:@"big_image.jpg"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
+    imageView.image = image;
+    [scrollView addSubview:imageView];
+    
+    // スクロールコンテントのサイズを設定
+    scrollView.contentSize = imageView.frame.size;
 }
 
 - (void)didReceiveMemoryWarning
