@@ -31,6 +31,10 @@
     
     // スクロールコンテントのサイズを設定
     scrollView.contentSize = imageView.frame.size;
+    
+    // 画面下端のスクロールが中途半端なところで止まっていたので、インセットを調整
+    scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
 }
 
 - (void)didReceiveMemoryWarning
