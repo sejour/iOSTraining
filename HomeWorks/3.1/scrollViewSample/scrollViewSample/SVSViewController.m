@@ -35,6 +35,13 @@
     // 画面下端のスクロールが中途半端なところで止まっていたので、インセットを調整
     scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
     scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    
+    
+    // 最小倍率と最大倍率を設定
+    scrollView.minimumZoomScale = 0.5;
+    scrollView.maximumZoomScale = 3.0;
+    
+    scrollView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,5 +50,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+// ズーム対象のスクロールビューのサブビューを取得する
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    for (UIView* view in scrollView.subviews) {
+        // イメージビューを返す
+        if ([view isKindOfClass:[UIImageView class]]) {
+            return  view;
+        }
+    }
+    
+    return nil;
+}
 
 @end
