@@ -63,4 +63,11 @@
     return nil;
 }
 
+// スクロール中に呼び出される
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // 現在のコンテンツの位置を出力
+    NSLog(@"(%f, %f)", scrollView.contentOffset.x, scrollView.contentOffset.y);
+}
+
 @end
