@@ -10,6 +10,11 @@
 
 @interface SVSViewController ()
 
+// スクロールビュー
+@property (nonatomic) UIScrollView *scrollView;
+// コンテンツのイメージビュー
+@property (nonatomic) UIImageView *imageView;
+
 @end
 
 @implementation SVSViewController
@@ -20,28 +25,37 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // スクロールビューの生成
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:scrollView];
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:_scrollView];
     
     // スクロール対象のイメージビューを生成
     UIImage *image = [UIImage imageNamed:@"big_image.jpg"];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
-    imageView.image = image;
-    [scrollView addSubview:imageView];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
+    _imageView.image = image;
+    [_scrollView addSubview:_imageView];
     
     // スクロールコンテントのサイズを設定
-    scrollView.contentSize = imageView.frame.size;
+    _scrollView.contentSize = _imageView.frame.size;
     
     // 画面下端のスクロールが中途半端なところで止まっていたので、インセットを調整
-    scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
-    scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    _scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
     
     
     // 最小倍率と最大倍率を設定
-    scrollView.minimumZoomScale = 0.5;
-    scrollView.maximumZoomScale = 3.0;
+    _scrollView.minimumZoomScale = 0.5;
+    _scrollView.maximumZoomScale = 3.0;
     
-    scrollView.delegate = self;
+    _scrollView.delegate = self;
+}
+
+// viewDidLoadの最終行で setContentOffset を呼び出すと、アニメーションされずに位置が設定されたので、viewDidAppear内で setContentOffset を呼び出しました。
+- (void)viewDidAppear:(BOOL)animated
+{
+    // 自動的に右下へ移動
+    // CGPoint pos = {_imageView.frame.size.width - _scrollView.frame.size.width, _imageView.frame.size.height - _scrollView.frame.size.height}; とするとY軸方向が最後までスクロールされません...？
+    CGPoint pos = {_imageView.frame.size.width - self.view.frame.size.width, _imageView.frame.size.height - self.view.frame.size.height};
+    [_scrollView setContentOffset:pos animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
