@@ -47,6 +47,10 @@
     _scrollView.maximumZoomScale = 3.0;
     
     _scrollView.delegate = self;
+    
+    
+    // ステータスバータップで一番上にスクロールする
+    _scrollView.scrollsToTop = YES;
 }
 
 // viewDidLoadの最終行で setContentOffset を呼び出すと、アニメーションされずに位置が設定されたので、viewDidAppear内で setContentOffset を呼び出しました。
