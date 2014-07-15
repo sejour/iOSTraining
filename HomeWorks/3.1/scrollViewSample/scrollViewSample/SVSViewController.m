@@ -59,6 +59,8 @@
 // viewDidLoadの最終行で setContentOffset を呼び出すと、アニメーションされずに位置が設定されたので、viewDidAppear内で setContentOffset を呼び出しました。
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     // 自動的に右下へ移動
     // CGPoint pos = {_imageView.frame.size.width - _scrollView.frame.size.width, _imageView.frame.size.height - _scrollView.frame.size.height}; とするとY軸方向が最後までスクロールされません...？
     CGPoint pos = {_imageView.frame.size.width - self.view.frame.size.width, _imageView.frame.size.height - self.view.frame.size.height};
