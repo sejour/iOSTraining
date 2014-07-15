@@ -38,9 +38,12 @@
     _scrollView.contentSize = _imageView.frame.size;
     
     // 画面下端のスクロールが中途半端なところで止まっていたので、インセットを調整
-    _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
-    _scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
-    
+    //_scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    //_scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0);
+    // スクロールビューのインセット自動調整を無効にする
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
     // 最小倍率と最大倍率を設定
     _scrollView.minimumZoomScale = 0.5;
