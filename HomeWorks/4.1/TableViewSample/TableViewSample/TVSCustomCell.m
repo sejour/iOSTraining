@@ -31,7 +31,8 @@
     // TODO : UILabel の高さ計算 [2]
     // HINT : (CGSize)sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode
 
-    CGSize size;
+    // ラベルのサイズを計算
+    CGSize size = [text sizeWithFont:self.bodyLabel.font constrainedToSize:CGSizeMake(self.bodyLabel.frame.size.width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
 
     CGFloat top = 20.0f;
     CGFloat bottom = 20.0f;
