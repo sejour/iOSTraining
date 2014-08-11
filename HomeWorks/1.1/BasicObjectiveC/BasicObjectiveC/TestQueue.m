@@ -37,7 +37,11 @@
 /** デキュー **/
 - (id)dequeue
 {
+<<<<<<< HEAD
     // データが一つも存在しなければnilを返す
+=======
+    // データが存在しない場合はnilを返す
+>>>>>>> FETCH_HEAD
     if (data.count < 1) {
         return nil;
     }
