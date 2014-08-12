@@ -37,8 +37,8 @@
     CGSize maxSize = CGSizeMake(self.bodyLabel.frame.size.width, CGFLOAT_MAX);
     
     // ラベルのサイズを計算
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
-        // iOS7以降では boundingRectWithSize を使用
+    // boundingRectWithSize:options:attributes:context: がNSStringのインスタンスメソッドとして存在すれば呼び出す。
+    if ([text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
         size = [text boundingRectWithSize:maxSize options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.bodyLabel.font} context:nil].size;
     } else {
         size = [text sizeWithFont:self.bodyLabel.font constrainedToSize:maxSize lineBreakMode:NSLineBreakByWordWrapping];
