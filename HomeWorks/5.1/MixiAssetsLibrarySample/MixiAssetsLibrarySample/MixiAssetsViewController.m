@@ -77,20 +77,47 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
     // TODO : accessoryType が UITableViewCellAccessoryNone だったら UITableViewCellAccessoryCheckmark を、逆なら None を設定する
     //TODO : 選択された場合 index を _selectedIndices に add する、選択解除された場合 _selectedIndices から index を削除する
-
+    switch (cell.accessoryType) {
+        // 選択時
+        case UITableViewCellAccessoryNone:
+            // チェックマークを表示
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            // 追加
+            [_selectedIndices addObject:@(indexPath.row)];
+            break;
+        // 選択解除時
+        case UITableViewCellAccessoryCheckmark:
+            // チェックマークを消す
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            // 削除
+            [_selectedIndices removeObject:@(indexPath.row)];
+            break;
+        default:
+            return;
+    }
+    
     //TODO : このままだと _selectedIndices は順番が cell がおかしいので、_selectedIndices をソートする必要がある。ここでソートする。
+    _selectedIndices = [NSMutableArray arrayWithArray:[_selectedIndices sortedArrayUsingComparator:^(id obj1, id obj2) {
+        return [obj1 compare:obj2];
+    }]];
 }
 
 #pragma mark - private methods
 -(void)pressDoneButton
 {
     //TODO : _selectedAssets初期化
+    _selectedAssets = [NSMutableArray arrayWithCapacity:4];
+    
     //TODO : _selectedIndices に入ってる index の　asset を _assets から取得して、_selectedAssets に add する。
-
-
+    for (NSNumber *index in _selectedIndices) {
+        [_selectedAssets addObject:_assets[[index integerValue]]];
+    }
+    
     //TODO : delegate methods コールして assets 渡す
+    [_delegate assetsViewControllerDidSelectedPhotos:_selectedAssets];
 }
 
 @end
